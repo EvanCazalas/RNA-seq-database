@@ -3,27 +3,25 @@ import streamlit as st
 import pandas as pd
 
 
+
+
+st.title("CTC Database – Data Check")
+
 df = pd.read_csv(
-    "CTC_RNA_Seq-DATA_Search(True_File).csv",
-    encoding="latin1",
-    sep=",",
+    "CTC_RNA_Seq-DATA_Search.csv",
     dtype=str,
     keep_default_na=False
 )
 
-st.write("✅ File loaded")
-st.write("Shape:", df.shape)
-st.write("Columns:")
+df.columns = df.columns.str.strip()
+df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
+
+st.write("✅ Rows, Columns:", df.shape)
+st.write("✅ Column names:")
 st.write(list(df.columns))
 
-st.write("First 10 rows (raw):")
-st.write(df.head(10))
-
-
-df.columns = df.columns.str.strip()
-
-st.title("CTC RNA-seq Database")
-
+st.write("✅ First 10 rows:")
+st.dataframe(df.head(10))
 st.subheader("Search datasets")
 
 geo_search = st.text_input("Search by GEO accession (e.g., GSE112856)")
