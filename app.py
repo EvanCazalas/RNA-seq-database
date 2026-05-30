@@ -15,6 +15,16 @@ geo_search = st.text_input("Search by GEO accession (e.g., GSE112856)")
 
 if geo_search and "GEO" in df.columns:
     df = df[df["GEO"].astype(str).str.contains(geo_search, case=False, na=False)]
+    
+
+st.write("Preview of summary column:")
+if "summery" in df.columns:
+    st.write(df["summery"].head(10))
+
+st.write("Preview of reference column:")
+if "refrence" in df.columns:
+    st.write(df["refrence"].head(10))
+
 
 keyword_search = st.text_input("Keyword search (summary or reference)")
 
