@@ -8,3 +8,4 @@ df = pd.DataFrame(data)
 st.title("CTC RNA-seq Database")
 
 st.dataframe(df)
+df = pd.read_csv("CTC_RNA_Seq-DATA_Search.csv")
