@@ -38,7 +38,7 @@ keyword_search = st.text_input("Keyword search (summary or reference)")
 if keyword_search:
     text_cols = []
     if "summery" in df.columns:
-        text_cols.append("summary")
+        text_cols.append("summery")
     if "refrence" in df.columns:
         text_cols.append("refrence")
 
