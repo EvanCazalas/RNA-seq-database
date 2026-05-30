@@ -6,15 +6,6 @@ import pandas as pd
 #df = pd.DataFrame(data)
 df = pd.read_csv("CTC_RNA_Seq-DATA_Search.csv", encoding="latin1")
 
-st.write("Columns detected in CSV:")
-st.write(df.columns)
-
-st.write("First 5 rows:")
-st.write(df.head())
-
-st.title("CTC RNA-seq Database")
-
-
 
 st.sidebar.header("Filtered Datasets")
 if "Cancer" in df.columns:
@@ -25,12 +16,24 @@ if "Cancer" in df.columns:
   if cancer != "All":
     df = df[df["Cancer"] == cancer]
 
-search_term = st.text_input("Search datasets(GEO, Refrence, Cancer, etc.)")
+st.subheader("Search Datasets")
+geo_search = st.text_input("Search by GEO accession(e.g., GSE112856)")
 
-if search_term:
-  df = df[df.apply(
-    lambda row: row.astype(str).str.contains(search_term, case=False).any(),
-    axis=1
-  )]
+if geo_search and "GEO" in df.columns:
+  df = df[df["GEO"].astype(str).str.contains(geo_search, case=False, na=False)]
 
+keyword_search = st.text_input("Keyword search(summery or refrence)")
+
+if keyword_search:
+  text_cols = [c for c in ["summery", "refrence"] if c in df.columns]
+  if text_cols:
+    df = df[df[text_cols].astype(str).apply(
+      lambda row: row.str.contains(keyword_search, case=False, na=False).any(),
+      axis=1
+    )]
+
+if "patients CTCS" in df.columns:
+  patient_only = st.checkbox("Show patient-derived CTC datasets only")
+  if patient_only:
+    df = df[df["patient CTCs"].astype(str).str.contains("yes", case=False, na=False)]
 st.dataframe(df)
