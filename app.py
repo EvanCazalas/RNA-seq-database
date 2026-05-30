@@ -8,7 +8,7 @@ df = pd.read_csv("CTC_RNA_Seq-DATA_Search.csv", encoding="latin1")
 
 st.title("CTC RNA-seq Database")
 
-st.dataframe(df)
+
 
 st.sidebar.header("Filtered Datasets")
 if "Cancer" in df.columns:
@@ -18,5 +18,13 @@ if "Cancer" in df.columns:
   )
   if cancer != "All":
     df = df[df["Cancer"] == cancer]
+
+search_term = st.text_input("Search datasets(GEO, Refrence, Cancer, etc.)")
+
+if search_term:
+  df = df[df.apply(
+    lambda row: row.astype(str).str.contains(search_term, case=False).any(),
+    axis=1
+  )]
 
 st.dataframe(df)
