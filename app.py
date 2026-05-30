@@ -10,3 +10,13 @@ st.title("CTC RNA-seq Database")
 
 st.dataframe(df)
 
+st.sidebar.header("Filtered Datasets")
+if "Cancer" in df.columns:
+  cancer = st.sidebar.selectbox(
+    "Cancer type",
+    ["All"] + sorted(df["Cancer"].dropna().unique().tolist())
+  )
+  if cancer != "All":
+    df = df[df["Cancer"] == cancer]
+
+st.dataframe(df)
