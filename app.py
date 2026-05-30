@@ -9,10 +9,12 @@ st.title("CTC Database – Data Check")
 
 df = pd.read_csv(
     "CTC_RNA_Seq-DATA_Search(True_File).csv",
+    encoding="latin1",
     dtype=str,
-    keep_default_na=False
+    keep_default_na=False,
+    engine="python",
+    on_bad_lines="skip"
 )
-
 df.columns = df.columns.str.strip()
 df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
 
