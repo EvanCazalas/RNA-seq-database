@@ -43,18 +43,16 @@ if "refrence" in df.columns:
 
 keyword_search = st.text_input("Keyword search (summary or reference)")
 
-if keyword_search:
-    text_cols = []
-    if "summery" in df.columns:
-        text_cols.append("Summary")
-    if "refrence" in df.columns:
-        text_cols.append("Refrence")
 
+if keyword_search:
+    text_cols = [c for c in ["Summary", "Reference"] if c in df.columns]
     if text_cols:
-        df = df[df[text_cols].astype(str).apply(
+        df = df[df[text_cols].apply(
             lambda row: row.str.contains(keyword_search, case=False, na=False).any(),
             axis=1
         )]
+
+
 
 if "patient CTCS" in df.columns:
     patient_only = st.checkbox("Show patient-derived CTC datasets only")
