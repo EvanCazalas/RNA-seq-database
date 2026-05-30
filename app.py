@@ -8,7 +8,7 @@ import pandas as pd
 st.title("CTC Database – Data Check")
 
 df = pd.read_csv(
-    "CTC_RNA_Seq-DATA_Search.csv",
+    "CTC_RNA_Seq-DATA_Search(True_File).csv",
     dtype=str,
     keep_default_na=False
 )
