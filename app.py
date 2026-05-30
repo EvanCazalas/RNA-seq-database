@@ -5,25 +5,18 @@ import pandas as pd
 df = pd.read_csv("CTC_RNA_Seq-DATA_Search.csv", encoding="latin1")
 
 
-st.sidebar.header("Filtered Datasets")
-if "Cancer" in df.columns:
-  cancer = st.sidebar.selectbox(
-    "Cancer type",
-    ["All"] + sorted(df["Cancer"].dropna().unique().tolist())
-  )
-  if cancer != "All":
-    df = df[df["Cancer"] == cancer]
+df.columns = df.columns.str.strip()
 
+st.title("CTC RNA-seq Database")
 
 st.subheader("Search datasets")
-
 
 geo_search = st.text_input("Search by GEO accession (e.g., GSE112856)")
 
 if geo_search and "GEO" in df.columns:
     df = df[df["GEO"].astype(str).str.contains(geo_search, case=False, na=False)]
 
-keyword_search = st.text_input("Keyword search (summary or reference)")
+keyword_search = st.text_input("Keyword search (summery or reference)")
 
 if keyword_search:
     text_cols = []
