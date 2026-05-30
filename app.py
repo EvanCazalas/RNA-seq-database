@@ -2,7 +2,14 @@
 import streamlit as st
 import pandas as pd
 
-df = pd.read_csv("CTC_RNA_Seq-DATA_Search.csv", encoding="latin1")
+
+df = pd.read_csv(
+    "CTC_RNA_Seq-DATA_Search.csv",
+    encoding="latin1",
+    sep=",",
+    dtype=str,
+    keep_default_na=False
+)
 
 
 df.columns = df.columns.str.strip()
