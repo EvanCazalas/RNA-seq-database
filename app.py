@@ -11,6 +11,14 @@ df = pd.read_csv(
     keep_default_na=False
 )
 
+st.write("✅ File loaded")
+st.write("Shape:", df.shape)
+st.write("Columns:")
+st.write(list(df.columns))
+
+st.write("First 10 rows (raw):")
+st.write(df.head(10))
+
 
 df.columns = df.columns.str.strip()
 
