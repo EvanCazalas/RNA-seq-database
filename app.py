@@ -6,7 +6,7 @@ import pandas as pd
 #df = pd.DataFrame(data)
 df = pd.read_csv("CTC_RNA_Seq-DATA_Search.csv", encoding="latin1")
 
-t.write("Columns detected in CSV:")
+st.write("Columns detected in CSV:")
 st.write(df.columns)
 
 st.write("First 5 rows:")
